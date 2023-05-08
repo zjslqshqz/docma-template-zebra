@@ -466,7 +466,9 @@ var app = window.app || {};
                     /* clipboard write failed */
                     button.innerText = 'Copy failed';
                 }).finally(function () {
-                    button.innerText = 'Copy';
+                    setTimeout(function () {
+                        button.innerText = 'Copy';
+                    },1000)
                 });
             });
         }
