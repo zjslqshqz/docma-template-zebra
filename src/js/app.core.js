@@ -458,16 +458,16 @@ var app = window.app || {};
 
             snippets[i].getElementsByClassName('hljs-copy')[0].addEventListener("click", function () {
                 this.innerText = 'Copying..';
-                if (!navigator.userAgent.toLowerCase().includes('safari')) {
-                    navigator.clipboard.writeText(code);
-                } else {
-                    prompt("Clipboard (Select: ⌘+a > Copy:⌘+c)", code);
-                }
-                this.innerText = 'Copied!';
                 let button = this;
-                setTimeout(function () {
+                navigator.clipboard.writeText(code).then(function() {
+                    /* clipboard successfully set */
+                    button.innerText = 'Copied!';
+                }, function() {
+                    /* clipboard write failed */
+                    button.innerText = 'Copy failed';
+                }).finally(function () {
                     button.innerText = 'Copy';
-                }, 1000)
+                });
             });
         }
 
